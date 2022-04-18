@@ -4,13 +4,14 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const router = require("./routers");
 const db = require("./databases");
+const handleError = require("./middlewares/handleError");
 
 app.use(cors({
     origin: process.env.CORS,
 }));
 
 app.use(
-    express.json(), router,
+    express.json(), router, handleError,
 );
 
 db.Conexao();
