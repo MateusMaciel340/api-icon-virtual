@@ -15,6 +15,9 @@ module.exports = db.define("tb_cliente",{
     senha_cliente:{
         type: DataTypes.STRING, field: "senha_cliente",
     },
+    tipo_cliente:{
+        type: DataTypes.INTEGER, field: "tipo_cliente",
+    },
     cpf_cliente:{
         type: DataTypes.STRING, field: "cpf_cliente",
     },

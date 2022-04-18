@@ -24,7 +24,7 @@ module.exports = {
             } = req.body;
 
             const insercao_favorito = await modelFavorito.create({
-                status_favorito, cliente_id, produto_id,
+                status_favorito: "p", cliente_id: req.user.id_cliente, produto_id,
             })
 
             res.status(201).json(insercao_favorito);
@@ -35,12 +35,16 @@ module.exports = {
     },
     async removerFavorito(req, res){
         try{
-            const { id_favorito } = req.params;
+            const { id_favorito, cliente_id } = req.params;
 
             const validarFavorito = await modelFavorito.findByPk(id_favorito);
 
             if(!validarFavorito){
                 return res.status(400).json("Nenhum produto foi encontrado favoritado!");
+            }
+
+            if(cliente_id !== req.user.id_cliente){
+                return res.status(400).json("Esse produto favoritado não pertence a você!");
             }
 
             const remocao_favorito = await modelFavorito.destroy({

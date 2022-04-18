@@ -9,6 +9,7 @@ const controllerLogin = require("../../controllers/cliente/controllerAutenticaca
 const permissao = require("../../middlewares/permissao");
 
 cliente.post("/login", controllerLogin.login);
+cliente.get("/usuario-logado", permissao, controllerCliente.clienteLogado);
 
 cliente.get("/cliente", 
     permissao, controllerCliente.listarCliente

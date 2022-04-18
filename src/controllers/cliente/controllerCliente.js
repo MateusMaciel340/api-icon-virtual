@@ -10,11 +10,19 @@ module.exports = {
             res.status(500).json(`${error}`);
         }
     },
+    async clienteLogado(req, res){
+        try{
+            res.status(200).json(req.user);
+            console.log(req.user)
+        }catch(error){
+            res.status(500).json(`${error}`);
+        }
+    },
     async postarCliente(req, res){
         try{
             const {
-                nome_cliente, email_cliente, senha_cliente, cpf_cliente,
-                telefone_cliente, endereco_cliente,
+                nome_cliente, email_cliente, senha_cliente, tipo_cliente, 
+                cpf_cliente, telefone_cliente, endereco_cliente,
             } = req.body;
 
             const senhaCrypt = bcrypt.hashSync(senha_cliente, 10);
@@ -33,8 +41,8 @@ module.exports = {
         try{
             const { id_cliente } = req.params;
             const {
-                nome_cliente, email_cliente, senha_cliente, cpf_cliente,
-                telefone_cliente, endereco_cliente,
+                nome_cliente, email_cliente, senha_cliente, tipo_cliente, 
+                cpf_cliente, telefone_cliente, endereco_cliente,
             } = req.body;
 
             const validarCliente = await modelCliente.findByPk(id_cliente);
