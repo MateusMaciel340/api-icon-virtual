@@ -12,6 +12,28 @@ module.exports = {
             res.status(500).json(`${error}`);
         }
     },
+    procurarProduto: async(req, res)=>{
+        try{
+            const { id_produto } = req.params;
+
+            const validarProduto = await modelProduto.findByPk(id_produto);
+
+            if(!validarProduto){
+                return res.status(400).json("Esse produto não existe!");
+            }
+
+            const procurar_produto = await modelProduto.findAll({
+                where:{
+                    id_produto,
+                }
+            })
+
+            res.status(200).json(procurar_produto)
+
+        }catch(error){
+            res.status(500).json(`${error}`);
+        }
+    },
     async postarProduto(req, res){
         try{
             const {

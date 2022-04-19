@@ -4,7 +4,11 @@ const modelFavorito = require("../../models/cliente/modelFavorito");
 module.exports = {
     listarFavorito: async(req, res)=>{
         try{
+            const usuarioLogado = req.user.id_cliente;
             const listagemFavorito = await modelFavorito.findAll({
+                where:{
+                    cliente_id: usuarioLogado,
+                },
                 include:[{
                     model: Produto,
                 },{
@@ -35,16 +39,12 @@ module.exports = {
     },
     async removerFavorito(req, res){
         try{
-            const { id_favorito, cliente_id } = req.params;
+            const { id_favorito } = req.params;
 
             const validarFavorito = await modelFavorito.findByPk(id_favorito);
 
             if(!validarFavorito){
                 return res.status(400).json("Nenhum produto foi encontrado favoritado!");
-            }
-
-            if(cliente_id !== req.user.id_cliente){
-                return res.status(400).json("Esse produto favoritado não pertence a você!");
             }
 
             const remocao_favorito = await modelFavorito.destroy({

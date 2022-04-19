@@ -10,10 +10,30 @@ module.exports = {
             res.status(500).json(`${error}`);
         }
     },
+    procurarCliente: async(req, res)=>{
+        try{
+            const { id_cliente } = req.params;
+
+            const validarCliente = await modelCliente.findByPk(id_cliente);
+
+            if(!validarCliente){
+                return res.status(400).json("Esse cliente não existe!");
+            }
+
+            const procurar_cliente = await modelCliente.findAll({
+                where:{
+                    id_cliente,
+                }
+            })
+
+            res.status(200).json(procurar_cliente);
+        }catch(error){
+            res.status(500).json(`${error}`);
+        }
+    },
     async clienteLogado(req, res){
         try{
-            res.status(200).json(req.user);
-            console.log(req.user)
+            res.status(200).json([req.user]);
         }catch(error){
             res.status(500).json(`${error}`);
         }

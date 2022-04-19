@@ -9,6 +9,27 @@ module.exports = {
             res.status(500).json(`${error}`);
         }
     },
+    procurarCategoria: async(req, res) => {
+        try{
+            const { id_categoria } = req.params;
+            
+            const validarCategoria = await modelCategoria.findByPk(id_categoria);
+
+            if(!validarCategoria){
+                return res.status(400).json("Essa categoria não existe!");
+            }
+
+            const procurar_categoria = await modelCategoria.findAll({
+                where:{
+                    id_categoria,
+                }
+            })
+
+            res.status(200).json(procurar_categoria);
+        }catch(error){
+            res.status(500).json(`${error}`);
+        }
+    },
     async postarCategoria(req, res){
         try{
             const { titulo_categoria, descricao_categoria } = req.body;
