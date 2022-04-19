@@ -14,6 +14,10 @@ cliente.get("/usuario-logado", permissao, controllerCliente.clienteLogado);
 cliente.get("/cliente", 
     permissao, controllerCliente.listarCliente
 );
+cliente.get("/cliente/:id_cliente",
+    permissao, controllerCliente.procurarCliente
+);
+
 cliente.post("/cliente", 
     permissao, controllerCliente.postarCliente
 );

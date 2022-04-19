@@ -10,6 +10,9 @@ const permissao = require("../../middlewares/permissao");
 produto.get("/produto", 
     permissao, controllerProduto.listarProduto
 );
+produto.get("/produto/:id_produto",
+    permissao, controllerProduto.procurarProduto
+);
 produto.post("/produto", 
     permissao, controllerProduto.postarProduto
 );

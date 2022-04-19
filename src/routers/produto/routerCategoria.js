@@ -10,6 +10,10 @@ const permissao = require("../../middlewares/permissao");
 categoria.get("/categoria", 
     permissao, controllerCategoria.listarCategoria
 );
+categoria.get("/categoria/:id_categoria",
+    permissao, controllerCategoria.procurarCategoria
+)
+
 categoria.post("/categoria", 
     permissao, controllerCategoria.postarCategoria
 );
