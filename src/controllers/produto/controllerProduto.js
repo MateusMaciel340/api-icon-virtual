@@ -25,7 +25,8 @@ module.exports = {
             const procurar_produto = await modelProduto.findAll({
                 where:{
                     id_produto,
-                }
+                },
+                include: Categoria,
             })
 
             res.status(200).json(procurar_produto)
